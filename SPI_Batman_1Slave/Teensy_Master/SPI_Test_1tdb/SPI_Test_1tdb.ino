@@ -85,6 +85,7 @@ void loop()
     Generic_Send_Once(Com);
 
     Generic_Send_Once(sendX);
+    WakeUP();
     SerialUSB.println("0x47 Request:");
     GetData(req47, 0x47);
 
@@ -126,7 +127,7 @@ void loop()
     SerialUSB.println();
     for (int h = 0; h <= 1; h++)
     {
-      SerialUSB.print("Module ");
+      SerialUSB.print("IC ");
       SerialUSB.print(h + 1);
       SerialUSB.print(" : ");
       for (int g = 0; g < 14; g++)
@@ -171,42 +172,42 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
     switch (ReqID)
     {
       case 0x47:
-        for (int h = 0; h < 1; h++)
+        for (int h = 0; h <= 1; h++)
         {
-          for (int g = 0; g < 2; g++)
+          for (int g = 0; g <= 2; g++)
           {
-            tempvol = Fluffer[2] * 256 + Fluffer [1];
+            tempvol = Fluffer[1+(h*9)] * 256 + Fluffer [0+(h*9)];
             if (tempvol != 0xffff)
             {
-              Voltage[h][g] = tempvol / 12.5;
+              Voltage[h][g] = tempvol/12.5;
             }
           }
         }
         break;
 
       case 0x48:
-        for (int h = 0; h < 1; h++)
+        for (int h = 0; h <= 1; h++)
         {
-          for (int g = 3; g < 5; g++)
+          for (int g = 3; g <= 5; g++)
           {
-            tempvol = Fluffer[2] * 256 + Fluffer [1];
+            tempvol = Fluffer[1+(h*9)] * 256 + Fluffer [0+(h*9)];
             if (tempvol != 0xffff)
             {
-              Voltage[h][g] = tempvol / 12.5;
+              Voltage[h][g] = tempvol/12.5;
             }
           }
         }
         break;
 
       case 0x49:
-        for (int h = 0; h < 1; h++)
+        for (int h = 0; h <= 1; h++)
         {
-          for (int g = 6; g < 8; g++)
+          for (int g = 6; g <= 8; g++)
           {
-            tempvol = Fluffer[2] * 256 + Fluffer [1];
+            tempvol = Fluffer[1+(h*9)] * 256 + Fluffer [0+(h*9)];
             if (tempvol != 0xffff)
             {
-              Voltage[h][g] = tempvol / 12.5;
+              Voltage[h][g] = tempvol /12.5 ;
             }
           }
         }
@@ -214,28 +215,28 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
 
 
       case 0x4A:
-        for (int h = 0; h < 1; h++)
+        for (int h = 0; h <= 1; h++)
         {
-          for (int g = 9; g < 11; g++)
+          for (int g = 9; g <= 11; g++)
           {
-            tempvol = Fluffer[2] * 256 + Fluffer [1];
+            tempvol = Fluffer[1+(h*9)] * 256 + Fluffer [0+(h*9)];
             if (tempvol != 0xffff)
             {
-              Voltage[h][g] = tempvol / 12.5;
+              Voltage[h][g] = tempvol /12.5;
             }
           }
         }
         break;
 
       case 0x4B:
-        for (int h = 0; h < 1; h++)
+        for (int h = 0; h <= 1; h++)
         {
-          for (int g = 12; g < 14; g++)
+          for (int g = 12; g <= 14; g++)
           {
-            tempvol = Fluffer[2] * 256 + Fluffer [1];
+            tempvol = Fluffer[1+(h*9)] * 256 + Fluffer [0+(h*9)];
             if (tempvol != 0xffff)
             {
-              Voltage[h][g] = tempvol / 12.5;
+              Voltage[h][g] = tempvol /12.5;
             }
           }
         }
