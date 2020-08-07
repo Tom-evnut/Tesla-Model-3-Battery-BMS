@@ -140,6 +140,10 @@ void loop()
       }
       SerialUSB.println();
     }
+    uint16_t tempvol = 0x9F6E / 12.5;
+    SerialUSB.println(tempvol);
+    tempvol = 0x9F6E * 0.08;
+    SerialUSB.println(tempvol);
     SerialUSB.println();
   }
 }
@@ -156,7 +160,7 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
     receive1 = SPI.transfer16(padding);  // do a transfer
     if (debug == 1)
     {
-    if (receive1 != 0xffff) SerialUSB.println(receive1, HEX);
+      if (receive1 != 0xffff) SerialUSB.println(receive1, HEX);
     }
     //SerialUSB.println(receive1,HEX);
     Fluffer[count2] = highByte(receive1);
@@ -176,10 +180,15 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 0; g <= 2; g++)
           {
-            tempvol = Fluffer[1+(h*9)] * 256 + Fluffer [0+(h*9)];
+            tempvol = Fluffer[1 + (h * 9) + (g * 2)] * 256 + Fluffer [0 + (h * 9) + (g * 2)];
+            if (debug == 1)
+            {
+              SerialUSB.println(Fluffer [0 + (h * 9) + (g * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + (g * 2)], HEX);
+            }
             if (tempvol != 0xffff)
             {
-              Voltage[h][g] = tempvol/12.5;
+              Voltage[h][g] = tempvol / 12.5;
             }
           }
         }
@@ -190,10 +199,15 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 3; g <= 5; g++)
           {
-            tempvol = Fluffer[1+(h*9)] * 256 + Fluffer [0+(h*9)];
+            tempvol = Fluffer[1 + (h * 9) + (g * 2)] * 256 + Fluffer [0 + (h * 9) + (g * 2)];
+            if (debug == 1)
+            {
+              SerialUSB.println(Fluffer [0 + (h * 9) + (g * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + (g * 2)], HEX);
+            }
             if (tempvol != 0xffff)
             {
-              Voltage[h][g] = tempvol/12.5;
+              Voltage[h][g] = tempvol / 12.5;
             }
           }
         }
@@ -204,10 +218,15 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 6; g <= 8; g++)
           {
-            tempvol = Fluffer[1+(h*9)] * 256 + Fluffer [0+(h*9)];
+            tempvol = Fluffer[1 + (h * 9) + (g * 2)] * 256 + Fluffer [0 + (h * 9) + (g * 2)];
+            if (debug == 1)
+            {
+              SerialUSB.println(Fluffer [0 + (h * 9) + (g * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + (g * 2)], HEX);
+            }
             if (tempvol != 0xffff)
             {
-              Voltage[h][g] = tempvol /12.5 ;
+              Voltage[h][g] = tempvol / 12.5 ;
             }
           }
         }
@@ -219,10 +238,15 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 9; g <= 11; g++)
           {
-            tempvol = Fluffer[1+(h*9)] * 256 + Fluffer [0+(h*9)];
+            tempvol = Fluffer[1 + (h * 9) + (g * 2)] * 256 + Fluffer [0 + (h * 9) + (g * 2)];
+            if (debug == 1)
+            {
+              SerialUSB.println(Fluffer [0 + (h * 9) + (g * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + (g * 2)], HEX);
+            }
             if (tempvol != 0xffff)
             {
-              Voltage[h][g] = tempvol /12.5;
+              Voltage[h][g] = tempvol / 12.5;
             }
           }
         }
@@ -233,10 +257,15 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 12; g <= 14; g++)
           {
-            tempvol = Fluffer[1+(h*9)] * 256 + Fluffer [0+(h*9)];
+            tempvol = Fluffer[1 + (h * 9) + (g * 2)] * 256 + Fluffer [0 + (h * 9) + (g * 2)];
+            if (debug == 1)
+            {
+              SerialUSB.println(Fluffer [0 + (h * 9) + (g * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + (g * 2)], HEX);
+            }
             if (tempvol != 0xffff)
             {
-              Voltage[h][g] = tempvol /12.5;
+              Voltage[h][g] = tempvol / 12.5;
             }
           }
         }
