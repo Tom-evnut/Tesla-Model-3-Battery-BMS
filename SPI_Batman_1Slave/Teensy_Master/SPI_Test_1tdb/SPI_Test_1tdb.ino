@@ -4,6 +4,7 @@
 
 uint16_t WakeUp[2] = {0x2ad4, 0x0000};
 uint16_t Com[2] = {0x21f2, 0x4d00};
+uint16_t Com2[2] = {0x2BFB, 0x0000};
 uint16_t send5 = 0x0008;
 uint16_t sendX[2] = {0x0000, 0x0000}; //place holder array for random messages
 uint16_t req47[2] = {0x4700, 0x7000};
@@ -48,6 +49,7 @@ uint16_t Temps [8][2] = {{0, 0},
 };
 
 bool debug = 0;
+bool SPIdebug = 1;
 
 
 void setup() {
@@ -69,6 +71,10 @@ void loop()
     {
       debug = !debug;
     }
+    if (incomingByte == 's')
+    {
+      SPIdebug = !SPIdebug;
+    }
   }
 
   if (millis() - LoopTimer1 > 500)
@@ -83,47 +89,79 @@ void loop()
     Generic_Send_Once(sendX);
 
     Generic_Send_Once(Com);
-
+    Generic_Send_Once(Com2);
     Generic_Send_Once(sendX);
     WakeUP();
-    SerialUSB.println("0x47 Request:");
+    if (debug == 1)
+    {
+      SerialUSB.println("0x47 Request:");
+    }
     GetData(req47, 0x47);
 
     WakeUP();
-    SerialUSB.println("0x48 Request:");
+    if (debug == 1)
+    {
+      SerialUSB.println("0x48 Request:");
+    }
     GetData(req48, 0x48);
 
     WakeUP();
-    SerialUSB.println("0x49 Request:");
+    if (debug == 1)
+    {
+      SerialUSB.println("0x49 Request:");
+    }
     GetData(req49, 0x49);
 
     WakeUP();
-    SerialUSB.println("0x4A Request:");
+    if (debug == 1)
+    {
+      SerialUSB.println("0x4A Request:");
+    }
     GetData(req4a, 0x4A);
 
     WakeUP();
-    SerialUSB.println("0x4B Request:");
+    if (debug == 1)
+    {
+      SerialUSB.println("0x4B Request:");
+    }
     GetData(req4b, 0x4B);
 
     WakeUP();
-    SerialUSB.println("0x4C Request:");
+    if (debug == 1)
+    {
+      SerialUSB.println("0x4C Request:");
+    }
     GetData(req4c, 0x4C);
 
     WakeUP();
-    SerialUSB.println("0x4D Request:");
+    if (debug == 1)
+    {
+      SerialUSB.println("0x4D Request:");
+    }
     GetData(req4d, 0x4D);
 
     WakeUP();
-    SerialUSB.println("0x4E Request:");
+    if (debug == 1)
+    {
+      SerialUSB.println("0x4E Request:");
+    }
     GetData(req4e, 0x4E);
 
     WakeUP();
-    SerialUSB.println("0x4F Request:");
+    if (debug == 1)
+    {
+      SerialUSB.println("0x4F Request:");
+    }
     GetData(req4f, 0x4F);
 
     WakeUP();
-    SerialUSB.println("0x50 Request:");
+    if (debug == 1)
+    {
+      SerialUSB.println("0x50 Request:");
+    }
     GetData(req50, 0x50);
+
+
     SerialUSB.println();
     for (int h = 0; h <= 1; h++)
     {
@@ -140,11 +178,6 @@ void loop()
       }
       SerialUSB.println();
     }
-    uint16_t tempvol = 0x9F6E / 12.5;
-    SerialUSB.println(tempvol);
-    tempvol = 0x9F6E * 0.08;
-    SerialUSB.println(tempvol);
-    SerialUSB.println();
   }
 }
 
@@ -158,7 +191,7 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
   for (count2 = 0; count2 <= 72; count2 = count2 + 2)
   {
     receive1 = SPI.transfer16(padding);  // do a transfer
-    if (debug == 1)
+    if (SPIdebug == 1)
     {
       if (receive1 != 0xffff) SerialUSB.println(receive1, HEX);
     }
@@ -199,11 +232,11 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 3; g <= 5; g++)
           {
-            tempvol = Fluffer[1 + (h * 9) + ((g-3) * 2)] * 256 + Fluffer [0 + (h * 9) + ((g-3) * 2)];
-            if (debug == 1)
+            tempvol = Fluffer[1 + (h * 9) + ((g - 3) * 2)] * 256 + Fluffer [0 + (h * 9) + ((g - 3) * 2)];
+            if (SPIdebug == 1)
             {
-              SerialUSB.println(Fluffer [0 + (h * 9) + ((g-3) * 2)], HEX);
-              SerialUSB.println(Fluffer[1 + (h * 9) + ((g-3) * 2)], HEX);
+              SerialUSB.println(Fluffer [0 + (h * 9) + ((g - 3) * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + ((g - 3) * 2)], HEX);
             }
             if (tempvol != 0xffff)
             {
@@ -218,11 +251,11 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 6; g <= 8; g++)
           {
-            tempvol = Fluffer[1 + (h * 9) + ((g-6) * 2)] * 256 + Fluffer [0 + (h * 9) + ((g-6) * 2)];
-            if (debug == 1)
+            tempvol = Fluffer[1 + (h * 9) + ((g - 6) * 2)] * 256 + Fluffer [0 + (h * 9) + ((g - 6) * 2)];
+            if (SPIdebug == 1)
             {
-              SerialUSB.println(Fluffer [0 + (h * 9) + ((g-6) * 2)], HEX);
-              SerialUSB.println(Fluffer[1 + (h * 9) + ((g-6) * 2)], HEX);
+              SerialUSB.println(Fluffer [0 + (h * 9) + ((g - 6) * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + ((g - 6) * 2)], HEX);
             }
             if (tempvol != 0xffff)
             {
@@ -238,11 +271,11 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 9; g <= 11; g++)
           {
-            tempvol = Fluffer[1 + (h * 9) + ((g-9) * 2)] * 256 + Fluffer [0 + (h * 9) + ((g-9) * 2)];
-            if (debug == 1)
+            tempvol = Fluffer[1 + (h * 9) + ((g - 9) * 2)] * 256 + Fluffer [0 + (h * 9) + ((g - 9) * 2)];
+            if (SPIdebug == 1)
             {
-              SerialUSB.println(Fluffer [0 + (h * 9) + ((g-9) * 2)], HEX);
-              SerialUSB.println(Fluffer[1 + (h * 9) + ((g-9) * 2)], HEX);
+              SerialUSB.println(Fluffer [0 + (h * 9) + ((g - 9) * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + ((g - 9) * 2)], HEX);
             }
             if (tempvol != 0xffff)
             {
@@ -257,11 +290,11 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 12; g <= 14; g++)
           {
-            tempvol = Fluffer[1 + (h * 9) + ((g-12) * 2)] * 256 + Fluffer [0 + (h * 9) + ((g-12) * 2)];
-            if (debug == 1)
+            tempvol = Fluffer[1 + (h * 9) + ((g - 12) * 2)] * 256 + Fluffer [0 + (h * 9) + ((g - 12) * 2)];
+            if (SPIdebug == 1)
             {
-              SerialUSB.println(Fluffer [0 + (h * 9) + ((g-12) * 2)], HEX);
-              SerialUSB.println(Fluffer[1 + (h * 9) + ((g-12) * 2)], HEX);
+              SerialUSB.println(Fluffer [0 + (h * 9) + ((g - 12) * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + ((g - 12) * 2)], HEX);
             }
             if (tempvol != 0xffff)
             {
