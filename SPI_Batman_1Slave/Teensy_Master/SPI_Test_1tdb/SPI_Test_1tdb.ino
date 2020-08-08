@@ -130,7 +130,7 @@ void loop()
       SerialUSB.print("IC ");
       SerialUSB.print(h + 1);
       SerialUSB.print(" : ");
-      for (int g = 0; g < 14; g++)
+      for (int g = 0; g <= 14; g++)
       {
         //SerialUSB.print("Cell");
         //SerialUSB.print(g + 1);
@@ -199,11 +199,11 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 3; g <= 5; g++)
           {
-            tempvol = Fluffer[1 + (h * 9) + (g * 2)] * 256 + Fluffer [0 + (h * 9) + (g * 2)];
+            tempvol = Fluffer[1 + (h * 9) + ((g-3) * 2)] * 256 + Fluffer [0 + (h * 9) + ((g-3) * 2)];
             if (debug == 1)
             {
-              SerialUSB.println(Fluffer [0 + (h * 9) + (g * 2)], HEX);
-              SerialUSB.println(Fluffer[1 + (h * 9) + (g * 2)], HEX);
+              SerialUSB.println(Fluffer [0 + (h * 9) + ((g-3) * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + ((g-3) * 2)], HEX);
             }
             if (tempvol != 0xffff)
             {
@@ -218,11 +218,11 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 6; g <= 8; g++)
           {
-            tempvol = Fluffer[1 + (h * 9) + (g * 2)] * 256 + Fluffer [0 + (h * 9) + (g * 2)];
+            tempvol = Fluffer[1 + (h * 9) + ((g-6) * 2)] * 256 + Fluffer [0 + (h * 9) + ((g-6) * 2)];
             if (debug == 1)
             {
-              SerialUSB.println(Fluffer [0 + (h * 9) + (g * 2)], HEX);
-              SerialUSB.println(Fluffer[1 + (h * 9) + (g * 2)], HEX);
+              SerialUSB.println(Fluffer [0 + (h * 9) + ((g-6) * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + ((g-6) * 2)], HEX);
             }
             if (tempvol != 0xffff)
             {
@@ -238,11 +238,11 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 9; g <= 11; g++)
           {
-            tempvol = Fluffer[1 + (h * 9) + (g * 2)] * 256 + Fluffer [0 + (h * 9) + (g * 2)];
+            tempvol = Fluffer[1 + (h * 9) + ((g-9) * 2)] * 256 + Fluffer [0 + (h * 9) + ((g-9) * 2)];
             if (debug == 1)
             {
-              SerialUSB.println(Fluffer [0 + (h * 9) + (g * 2)], HEX);
-              SerialUSB.println(Fluffer[1 + (h * 9) + (g * 2)], HEX);
+              SerialUSB.println(Fluffer [0 + (h * 9) + ((g-9) * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + ((g-9) * 2)], HEX);
             }
             if (tempvol != 0xffff)
             {
@@ -257,11 +257,11 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         {
           for (int g = 12; g <= 14; g++)
           {
-            tempvol = Fluffer[1 + (h * 9) + (g * 2)] * 256 + Fluffer [0 + (h * 9) + (g * 2)];
+            tempvol = Fluffer[1 + (h * 9) + ((g-12) * 2)] * 256 + Fluffer [0 + (h * 9) + ((g-12) * 2)];
             if (debug == 1)
             {
-              SerialUSB.println(Fluffer [0 + (h * 9) + (g * 2)], HEX);
-              SerialUSB.println(Fluffer[1 + (h * 9) + (g * 2)], HEX);
+              SerialUSB.println(Fluffer [0 + (h * 9) + ((g-12) * 2)], HEX);
+              SerialUSB.println(Fluffer[1 + (h * 9) + ((g-12) * 2)], HEX);
             }
             if (tempvol != 0xffff)
             {
