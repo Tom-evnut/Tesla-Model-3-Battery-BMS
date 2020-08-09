@@ -86,7 +86,7 @@ void loop()
 
     sendX[0] = 0x0800;
     sendX[1] = 0x0000;
-    Generic_Send_Once(sendX);
+    Generic_Send_Once(sendX,2);
 
     Generic_Send_Once(Com, 2);
     Generic_Send_Once(sendX, 2);
