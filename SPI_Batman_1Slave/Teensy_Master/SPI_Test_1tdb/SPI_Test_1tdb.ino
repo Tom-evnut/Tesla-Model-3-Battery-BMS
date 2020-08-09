@@ -82,15 +82,31 @@ void loop()
     LoopTimer1 = millis();
 
     WakeUP();
-    Generic_Send_Once(Com);
+    Generic_Send_Once(Com, 2);
 
     sendX[0] = 0x0800;
     sendX[1] = 0x0000;
     Generic_Send_Once(sendX);
 
-    Generic_Send_Once(Com);
-    Generic_Send_Once(Com2);
-    Generic_Send_Once(sendX);
+    Generic_Send_Once(Com, 2);
+    Generic_Send_Once(sendX, 2);
+
+    WakeUP();
+    if (debug == 1)
+    {
+      SerialUSB.println("0x50 Request:");
+    }
+    GetData(req50, 0x50);
+
+    Generic_Send_Once(Com, 1);
+    Generic_Send_Once(Com, 1);
+
+    if (debug == 1)
+    {
+      SerialUSB.println("0x4F Request:");
+    }
+    GetData(req4f, 0x4F);
+
     WakeUP();
     if (debug == 1)
     {
@@ -148,18 +164,6 @@ void loop()
     GetData(req4e, 0x4E);
 
     WakeUP();
-    if (debug == 1)
-    {
-      SerialUSB.println("0x4F Request:");
-    }
-    GetData(req4f, 0x4F);
-
-    WakeUP();
-    if (debug == 1)
-    {
-      SerialUSB.println("0x50 Request:");
-    }
-    GetData(req50, 0x50);
 
 
     SerialUSB.println();
@@ -328,13 +332,15 @@ void WakeUP()
   }
 }
 
-void Generic_Send_Once(uint16_t Command[2])
+void Generic_Send_Once(uint16_t Command[], uint8_t len)
 {
 
   SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE3));//1mhz clock,msb first, mode 3
   digitalWrite (SS, LOW);        // assert Slave Select
-  receive1 = SPI.transfer16(Command[0]);  // do a transfer
-  receive2 = SPI.transfer16(Command[1]);  // do a transfer
+  for (int h = 0; h < len; h++)
+  {
+    receive1 = SPI.transfer16(Command[h]);  // do a transfer
+  }
   digitalWrite (SS, HIGH);       // de-assert Slave Select
   SPI.endTransaction ();         // transaction over
   delayMicroseconds(20);
