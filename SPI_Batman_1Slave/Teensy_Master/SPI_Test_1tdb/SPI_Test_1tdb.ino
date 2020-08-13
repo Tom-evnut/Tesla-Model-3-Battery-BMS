@@ -82,24 +82,40 @@ void loop()
     LoopTimer1 = millis();
 
     WakeUP();
-    Generic_Send_Once(Com, 2);
+    //Generic_Send_Once(Com, 2);
 
-    sendX[0] = 0x0800;
-    sendX[1] = 0x0000;
-    Generic_Send_Once(sendX,2);
+    //sendX[0] = 0x0800;
+    //sendX[1] = 0x0000;
+    //Generic_Send_Once(sendX,2);
 
-    Generic_Send_Once(Com, 2);
-    Generic_Send_Once(sendX, 2);
+    //Generic_Send_Once(Com, 2);
+    //Generic_Send_Once(sendX, 2);
+    WakeUP();
+    if (debug == 1)
+    {
+      SerialUSB.println("0x4D Request:");
+    }
+    GetData(req4d, 0x4D);
 
     WakeUP();
+    if (debug == 1)
+    {
+      SerialUSB.println("0x4E Request:");
+    }
+    GetData(req4e, 0x4E);
+    
+    WakeUP();
+    
     if (debug == 1)
     {
       SerialUSB.println("0x50 Request:");
     }
     GetData(req50, 0x50);
 
-    Generic_Send_Once(Com, 1);
-    Generic_Send_Once(Com, 1);
+    Generic_Send_Once(Com2, 1);
+    Generic_Send_Once(Com2, 1);
+
+
 
     if (debug == 1)
     {
@@ -149,21 +165,7 @@ void loop()
     }
     GetData(req4c, 0x4C);
 
-    WakeUP();
-    if (debug == 1)
-    {
-      SerialUSB.println("0x4D Request:");
-    }
-    GetData(req4d, 0x4D);
 
-    WakeUP();
-    if (debug == 1)
-    {
-      SerialUSB.println("0x4E Request:");
-    }
-    GetData(req4e, 0x4E);
-
-    WakeUP();
 
 
     SerialUSB.println();
