@@ -13,10 +13,10 @@ uint16_t req49[2] = {0x4900, 0xdd00};
 uint16_t req4a[2] = {0x4a00, 0xc900};
 uint16_t req4b[2] = {0x4b00, 0x2000};
 uint16_t req4c[2] = {0x4c00, 0xe100};
-uint16_t req4d[2] = {0x0100, 0x2700};
-uint16_t req4e[2] = {0x0100, 0x3300};
-uint16_t req4f[2] = {0x0100, 0xda00};
-uint16_t req50[2] = {0x0000, 0x9400};
+uint16_t req4d[2] = {0x4D00, 0x0800};
+uint16_t req4e[2] = {0x4E00, 0x3300};
+uint16_t req4f[2] = {0x4F00, 0xF500};
+uint16_t req50[2] = {0x5000, 0x9400};
 uint16_t padding = 0x0000;
 uint16_t Request_A = 0x0000;
 uint16_t Request_B = 0x0000;
@@ -103,16 +103,18 @@ void loop()
       SerialUSB.println("0x4E Request:");
     }
     GetData(req4e, 0x4E);
-    
+
     WakeUP();
-    
+
     if (debug == 1)
     {
       SerialUSB.println("0x50 Request:");
     }
     GetData(req50, 0x50);
 
+    WakeUP();
     Generic_Send_Once(Com2, 1);
+    Delay(1);
     Generic_Send_Once(Com2, 1);
 
 
@@ -165,7 +167,8 @@ void loop()
     }
     GetData(req4c, 0x4C);
 
-
+    Generic_Send_Once(Com, 2);
+    Generic_Send_Once(Com, 2);
 
 
     SerialUSB.println();
