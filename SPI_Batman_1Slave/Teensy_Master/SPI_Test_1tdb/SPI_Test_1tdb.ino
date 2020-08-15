@@ -172,7 +172,7 @@ void loop()
 
 
     SerialUSB.println();
-    for (int h = 0; h <= 1; h++)
+    for (int h = 0; h <= 8; h++)
     {
       SerialUSB.print("IC ");
       SerialUSB.print(h + 1);
@@ -218,7 +218,7 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
     switch (ReqID)
     {
       case 0x47:
-        for (int h = 0; h <= 1; h++)
+        for (int h = 0; h <= 8; h++)
         {
           for (int g = 0; g <= 2; g++)
           {
@@ -237,7 +237,7 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         break;
 
       case 0x48:
-        for (int h = 0; h <= 1; h++)
+        for (int h = 0; h <= 8; h++)
         {
           for (int g = 3; g <= 5; g++)
           {
@@ -256,7 +256,7 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         break;
 
       case 0x49:
-        for (int h = 0; h <= 1; h++)
+        for (int h = 0; h <= 8; h++)
         {
           for (int g = 6; g <= 8; g++)
           {
@@ -276,7 +276,7 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
 
 
       case 0x4A:
-        for (int h = 0; h <= 1; h++)
+        for (int h = 0; h <= 8; h++)
         {
           for (int g = 9; g <= 11; g++)
           {
@@ -295,7 +295,7 @@ void GetData(uint16_t Request[2], uint8_t ReqID)
         break;
 
       case 0x4B:
-        for (int h = 0; h <= 1; h++)
+        for (int h = 0; h <= 8; h++)
         {
           for (int g = 12; g <= 14; g++)
           {
